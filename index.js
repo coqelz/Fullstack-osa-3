@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
+const morgan = require('morgan')
+morgan.token('body', function (req, res) { return JSON.stringify(req.body)})
+app.use(morgan('tiny'))
+
   
  
 let persons = [
@@ -57,6 +61,9 @@ let persons = [
     return Math.floor(id)
   }
 
+
+  app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
   app.post('/api/persons', (request, response) => {
    const body = request.body
    if(!body.name){
@@ -73,17 +80,25 @@ let persons = [
       error: 'name must be unique'
     })
    }
+   
    const person = {
     name: body.name,
     number: body.number,
     id: generateId(),
    }
-  
+
    persons = persons.concat(person)
-
    response.json(person)
-
   })
+  
+  app.use(morgan('tiny'))
+
+  const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+  }
+  
+  app.use(unknownEndpoint)
+
   
   const PORT = 3001
   app.listen(PORT, () => {
