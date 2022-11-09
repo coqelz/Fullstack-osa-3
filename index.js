@@ -6,7 +6,10 @@ const morgan = require('morgan')
 morgan.token('body', function (req, res) { return JSON.stringify(req.body)})
 app.use(morgan('tiny'))
 
-  
+const cors = require('cors')
+app.use(cors())
+
+app.use(express.static('build'))
  
 let persons = [
   {
@@ -90,7 +93,7 @@ let persons = [
    persons = persons.concat(person)
    response.json(person)
   })
-  
+
   app.use(morgan('tiny'))
 
   const unknownEndpoint = (request, response) => {
