@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "fly deploy", 
+    "deploy": "fly deploy",
     "logs:prod": "fly logs"
   },
   "author": "Juho Kokko",
@@ -15,6 +15,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "mongoose": "^6.7.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
