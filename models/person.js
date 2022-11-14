@@ -13,8 +13,22 @@ mongoose.connect(url)
 
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name: {
+        type:String,
+        minlength: 3,
+        required: true
+    },
+    number: {
+        type: String,
+        minlength: 8,
+        validate: {
+            validator: function(valid) {
+                const parts = valid.split('-')
+                return parts[0].length == 3 || parts[0].length == 2
+            },
+            message: not => `${not.value} is not a valid number`
+        }
+    },
   })
   
 personSchema.set('toJSON', {

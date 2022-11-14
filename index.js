@@ -60,7 +60,7 @@ const Person = require('./models/person')
       name: body.name,
       number: body.number,
     }
-    Person.findByIdAndUpdate(req.params.id, newPerson, {new: true}).then(person => {
+    Person.findByIdAndUpdate(req.params.id, newPerson, {new: true, runValidators: true, context: 'query'}).then(person => {
       res.json(person)
     }).catch(err => next(err))
   })
@@ -87,8 +87,10 @@ const Person = require('./models/person')
 
    person.save().then(res => {
     response.json(res)
-   })
+   }).catch(err => next(err))
   })
+
+
 
   app.use(morgan('tiny'))
 
@@ -103,6 +105,8 @@ const Person = require('./models/person')
   
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
+    } else if(error.name == 'ValidationError'){
+      return response.status(400).json({error: error.message})
     }
   
     next(error)

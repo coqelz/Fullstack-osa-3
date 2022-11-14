@@ -8,6 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "fly deploy",
+    "build:ui": "rm -rf build && cd ../fullstackopen/osa-2/puhelinluettelo && npm run build && cp -r build cd ../../../fullstackopen-osa-3",
     "logs:prod": "fly logs"
   },
   "author": "Juho Kokko",

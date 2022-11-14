@@ -1,6 +1,6 @@
-# fly.toml file generated for fullstack-osa-3 on 2022-11-09T08:58:47+02:00
+# fly.toml file generated for delicate-sunset-3787 on 2022-11-14T11:11:00+02:00
 
-app = "fullstack-osa-3"
+app = "delicate-sunset-3787"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
